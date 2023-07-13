@@ -2,27 +2,27 @@ pipeline {
     agent any
     stages {
         stage('Build') {
-            withEnv(['PATH+MAVEN_HOME=/opt/maven/bin']) {
-                steps {
+            steps {
+                withEnv(['PATH+MAVEN_HOME=/opt/maven/bin']) {
                     sh 'mvn -B -DskipTests clean package'
                 }
             }
         }
         stage('Test') {
-            withEnv(['PATH+MAVEN_HOME=/opt/maven/bin']) {
-                steps {
+            steps {
+                withEnv(['PATH+MAVEN_HOME=/opt/maven/bin']) {
                     sh 'mvn test'
                 }
-                post {
-                    always {
-                        junit 'target/surefire-reports/*.xml'
-                    }
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
                 }
             }
         }
         stage('Deliver') {
-            withEnv(['PATH+MAVEN_HOME=/opt/maven/bin']) {
-                steps {
+            steps {
+                withEnv(['PATH+MAVEN_HOME=/opt/maven/bin']) {
                     sh './jenkins/scripts/deliver.sh'
                 }
             }
