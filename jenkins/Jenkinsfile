@@ -10,9 +10,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                withEnv(['PATH+MAVEN_HOME=/opt/maven/bin']) {
                     sh 'mvn test'
-                }
             }
             post {
                 always {
@@ -22,9 +20,7 @@ pipeline {
         }
         stage('Deliver') {
             steps {
-                withEnv(['PATH+MAVEN_HOME=/opt/maven/bin']) {
-                    sh './jenkins/scripts/deliver.sh'
-                }
+                sh './jenkins/scripts/deliver.sh'
             }
         }
         stage('complete') {
