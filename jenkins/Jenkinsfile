@@ -27,5 +27,10 @@ pipeline {
                 }
             }
         }
+        stage('complete') {
+            steps {
+                echo 'App build completed'
+            }
+        }
     }
 }
